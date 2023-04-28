@@ -5,6 +5,6 @@ gems
 Gemfile.local
 Gemfile.lock
 *.log
-ext
+ext/build_metadata*
 pkg
 *.swp

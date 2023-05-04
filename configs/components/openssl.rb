@@ -38,35 +38,8 @@ component 'openssl' do |pkg, settings, platform|
     '--libdir=lib',
     "--openssldir=#{settings[:ssldir]}",
     'shared',
-    'no-asm',
     target,
-
-    # ALGORITHMS
-    'no-camellia',
-    'no-ec2m',
-    'no-idea',
-    'no-md4',
-    'no-mdc2',
-    'no-rc2',
-    'no-rc4',
-    'no-rmd160',
-    'no-seed',
-    'no-whirlpool',
-
-    # CIPHERSUITES
-    'no-gost',
-    'no-weak-ssl-ciphers',
-
-    # PROTOCOLS
-    'no-ssl3',
-    'no-ssl3-method',
-    'no-dtls',
-    'no-dtls1-method',
-    'no-dtls1_2-method',
-
-    # PROVIDERS
-    'enable-fips',
-    'no-legacy'
+    'enable-fips'
   ]
 
   pkg.configure do
@@ -79,7 +52,6 @@ component 'openssl' do |pkg, settings, platform|
 
   pkg.build do
     [
-      "#{platform[:make]} depend",
       platform[:make]
     ]
   end

@@ -1,6 +1,6 @@
 project 'openssl-fips' do |proj|
 
-  proj.version "3.0.0"
+  proj.version_from_git
   proj.generate_archives true
   proj.generate_packages false
 

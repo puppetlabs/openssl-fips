@@ -14,7 +14,7 @@ Only version **3.0.0** of the `fips` provider is FIPS 140-2 compliant and **cert
 * [https://github.com/openssl/openssl/issues/20800#issuecomment-1517522961](https://github.com/openssl/openssl/issues/20800#issuecomment-1517522961)
 * [https://github.com/openssl/openssl/issues/20541#issuecomment-1476989608](https://github.com/openssl/openssl/issues/20541#issuecomment-1476989608)
 
-However, it is recommended to install the **3.0.0** version of the `fips` provider with the latest OpenSSL 3.0.x distribution. Given that constraint, we build the `opennssl-fips` module in this repo, separate fro `puppet-runtime`.
+However, it is recommended to install the **3.0.0** version of the `fips` provider with the latest OpenSSL 3.0.x distribution. Given that constraint, we build the `opennssl-fips` module in this repo, separate for `puppet-runtime`.
 
 ### OpenSSL 3.1
 

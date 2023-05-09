@@ -15,8 +15,6 @@ component 'openssl' do |pkg, settings, platform|
     pkg.build_requires 'perl-core'
 
     pkg.environment 'PATH', '/opt/pl-build-tools/bin:$(PATH):/usr/local/bin'
-    pkg.environment 'CFLAGS', settings[:cflags]
-    pkg.environment 'LDFLAGS', "#{settings[:ldflags]} -Wl,-z,relro"
 
     target = 'linux-x86_64'
   elsif platform.is_windows?
@@ -28,6 +26,9 @@ component 'openssl' do |pkg, settings, platform|
   else
     raise 'The openssl-fips component is only supported on RHEL and Windows'
   end
+
+  pkg.environment 'CFLAGS', settings[:cflags]
+  pkg.environment 'LDFLAGS', settings[:ldflags]
 
   ###########
   # CONFIGURE

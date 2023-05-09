@@ -29,10 +29,14 @@ project 'openssl-fips' do |proj|
   # Define default CFLAGS and LDFLAGS for most platforms, and then
   # tweak or adjust them as needed.
   #
-  # REMIND: we don't install pl-build-tools on redhatfips-8
-  proj.setting(:cppflags, "-I#{proj.includedir} -I/opt/pl-build-tools/include")
-  proj.setting(:cflags, "#{proj.cppflags}")
-  proj.setting(:ldflags, "-L#{proj.libdir} -L/opt/pl-build-tools/lib -Wl,-rpath=#{proj.libdir}")
+  if platform.is_windows?
+  else
+    # REMIND: we don't install pl-build-tools on redhatfips-8
+    proj.setting(:cppflags, "-I#{proj.includedir} -I/opt/pl-build-tools/include")
+    proj.setting(:cflags, "#{proj.cppflags}")
+    # -z,relro: partial read-only relocations
+    proj.setting(:ldflags, "-L#{proj.libdir} -L/opt/pl-build-tools/lib -Wl,-rpath=#{proj.libdir} -Wl,-z,relro")
+  end
 
   # Harden Linux ELF binaries by compiling with PIE (Position Independent Executables) support,
   # stack canary and full RELRO.

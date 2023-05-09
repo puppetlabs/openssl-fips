@@ -11,6 +11,14 @@ project 'openssl-fips' do |proj|
   proj.identifier 'com.puppetlabs'
 
   if platform.is_windows?
+    proj.setting(:company_id, "PuppetLabs")
+    proj.setting(:product_id, "Puppet")
+    proj.setting(:base_dir, "ProgramFiles64Folder")
+
+    # We build for windows not in the final destination, but in the paths that correspond
+    # to the directory ids expected by WIX. This will allow for a portable installation (ideally).
+    proj.setting(:install_root, File.join("C:", proj.base_dir, proj.company_id, proj.product_id))
+    proj.setting(:install_prefix, '')
   else
     proj.setting(:install_root, "/opt/puppetlabs")
     proj.setting(:install_prefix, 'INSTALL_PREFIX=/')
@@ -30,6 +38,17 @@ project 'openssl-fips' do |proj|
   # tweak or adjust them as needed.
   #
   if platform.is_windows?
+    arch = platform.architecture == "x64" ? "64" : "32"
+    proj.setting(:gcc_root, "C:/tools/mingw64")
+    proj.setting(:gcc_bindir, "#{proj.gcc_root}/bin")
+    proj.setting(:tools_root, "C:/tools/pl-build-tools")
+    proj.setting(:cppflags, "-I#{proj.tools_root}/include -I#{proj.gcc_root}/include -I#{proj.includedir}")
+    proj.setting(:cflags, "#{proj.cppflags}")
+    # nxcompat: enable DEP
+    # dynamicbase: enable ASLR
+    proj.setting(:ldflags, "-L#{proj.tools_root}/lib -L#{proj.gcc_root}/lib -L#{proj.libdir} -Wl,--nxcompat -Wl,--dynamicbase")
+
+    proj.setting(:cygwin, "nodosfilewarning winsymlinks:native")
   else
     # REMIND: we don't install pl-build-tools on redhatfips-8
     proj.setting(:cppflags, "-I#{proj.includedir} -I/opt/pl-build-tools/include")

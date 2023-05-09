@@ -63,7 +63,8 @@ component 'openssl' do |pkg, settings, platform|
   install_prefix = platform.is_windows? ? '' : 'INSTALL_PREFIX=/'
   pkg.install do
     [
-      "#{platform[:make]} #{install_prefix} install_fips"
+      "#{platform[:make]} #{install_prefix} install_fips",
+      "rm /opt/puppetlabs/puppet/ssl/fipsmodule.cnf",
     ]
   end
 end

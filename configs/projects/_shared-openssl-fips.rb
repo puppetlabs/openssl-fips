@@ -22,6 +22,8 @@ else
     proj.setting(:install_prefix, 'INSTALL_PREFIX=/')
 end
 
+# Projects that consume these shared settings must provide a prefix
+proj.setting(:prefix, File.join(proj.install_root, prefix))
 proj.setting(:bindir, File.join(proj.prefix, "bin"))
 proj.setting(:libdir, File.join(proj.prefix, "lib"))
 proj.setting(:ssldir, File.join(proj.prefix, "ssl"))

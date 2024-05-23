@@ -6,19 +6,36 @@ OpenSSL 3 introduced a provider architecture for cryptographic operations. OpenS
 
 ## FIPS Compliance
 
+### Terminology
+
+Validated: The source code has gone through the Cryptographic Module Validation Program (CMVP) and been issued a certificate
+Certificate: Specifies the module, vendor, expiration date, etc that was validated. For example, https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/4282
+Security Policy: Describes how the code was validated and contains instructions that must be followed to be FIPS compliant
+Compliant: Built from validated source code, following the instructions in the Security Policy
+
 ### OpenSSL 3.0
 
-Only version **3.0.0** of the `fips` provider is FIPS 140-2 compliant and **certified**. In other words, you cannot build the provider from the latest 3.0.x source! See
+Only specific versions of the `fips` provider are FIPS 140-2 **validated**. The term `validated` has a specific meaning as described in [README-FIPS.md](https://github.com/openssl/openssl/blob/master/README-FIPS.md)
 
-* [https://github.com/openssl/openssl/issues/20689](https://github.com/openssl/openssl/issues/20689)
-* [https://github.com/openssl/openssl/issues/20800#issuecomment-1517522961](https://github.com/openssl/openssl/issues/20800#issuecomment-1517522961)
-* [https://github.com/openssl/openssl/issues/20541#issuecomment-1476989608](https://github.com/openssl/openssl/issues/20541#issuecomment-1476989608)
+> A cryptographic module is only FIPS validated after it has gone through the complex FIPS 140 validation process. As this process takes a very long time, it is not possible to validate every minor release of OpenSSL. If you need a FIPS validated module then you must ONLY generate a FIPS provider using OpenSSL versions that have valid FIPS certificates.
 
-However, it is recommended to install the **3.0.0** version of the `fips` provider with the latest OpenSSL 3.0.x distribution. Given that constraint, we build the `opennssl-fips` module in this repo, separate for `puppet-runtime`.
+The list of validated providers is available from https://openssl.org/source/index.html.
+
+In other words, you cannot build the `fips` provider from the latest 3.0.x source! For more details:
+
+* [GH-20689](https://github.com/openssl/openssl/issues/20689)
+* [GH-20800](https://github.com/openssl/openssl/issues/20800#issuecomment-1517522961)
+* [GH-20541](https://github.com/openssl/openssl/issues/20541#issuecomment-1476989608)
+
+Since the base openssl code and the `fips` provider are released and validated, respectively, at different times, we build the `openssl-fips` module in this repo, separate from the `openssl` component in the `puppet-runtime`.
+
+Finally, building the `fips` provider from **validated** source is not sufficient to be FIPS **compliant** as specified in the README:
+
+>  A FIPS certificate contains a link to a Security Policy, and you MUST follow the instructions in the Security Policy in order to be FIPS compliant.
 
 ### OpenSSL 3.1
 
-[OpenSSL 3.1 was recently released](https://www.openssl.org/blog/blog/2023/03/07/OpenSSL3.1Release/). It introduces a FIPS 140-3 compliant `fips` provider, however, it is not **certified** yet.
+[OpenSSL 3.1 was recently released](https://www.openssl.org/blog/blog/2023/03/07/OpenSSL3.1Release/). It introduces a FIPS 140-3 `fips` provider, however, it is not **validated** yet.
 
 There are two notable changes in OpenSSL 3.1 relating to FIPS:
 

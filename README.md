@@ -8,10 +8,13 @@ OpenSSL 3 introduced a provider architecture for cryptographic operations. OpenS
 
 ### Terminology
 
-Validated: The source code has gone through the Cryptographic Module Validation Program (CMVP) and been issued a certificate
-Certificate: Specifies the module, vendor, expiration date, etc that was validated. For example, https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/4282
-Security Policy: Describes how the code was validated and contains instructions that must be followed to be FIPS compliant
-Compliant: Built from validated source code, following the instructions in the Security Policy
+**Validated**: The source code has gone through the Cryptographic Module Validation Program (CMVP) and been issued a certificate
+
+**Certificate**: Specifies the module, vendor, expiration date, etc that was validated. For example, https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/4282
+
+**Security Policy**: Describes how the code was validated and contains instructions that must be followed to be FIPS compliant
+
+**Compliant**: Built from validated source code, following the instructions in the Security Policy
 
 ### OpenSSL 3.0
 

@@ -1,5 +1,7 @@
 # openssl-fips
 
+This repository is archived and Perforce will no longer be updating this repository. For more information, see [this Puppet blog post](https://www.puppet.com/blog/open-source-puppet-updates-2025).
+
 This repo contains a vanagon based project to build the OpenSSL fips provider, producing a dynamically loadable library `fips.so` (or `fips.dll` on Windows).
 
 OpenSSL 3 introduced a provider architecture for cryptographic operations. OpenSSL supports several [standard providers: `default`, `fips`, etc](https://github.com/openssl/openssl/blob/master/README-PROVIDERS.md). See [OSSL\_PROVIDER-FIPS](https://www.openssl.org/docs/man3.0/man7/OSSL_PROVIDER-FIPS.html) for more information about the `fips` provider.
